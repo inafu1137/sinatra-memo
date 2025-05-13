@@ -1,0 +1,27 @@
+<!-- views/show.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= h @memo['title'] %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>メモアプリ</h1>
+    <h2><%= h @memo['title'] %></h2>
+    <pre><%= h @memo['content'] %></pre>
+
+    <form action="/memos/<%= h @memo['id'] %>/edit" method="get" style="display:inline;">
+      <button type="submit">変更</button>
+    </form>
+
+    <form action="/memos/<%= h @memo['id'] %>" method="post" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit">削除</button>
+    </form>
+
+    <a href="/memos"><button>メモ一覧へ戻る</button></a>
+  </div>
+</body>
+</html>

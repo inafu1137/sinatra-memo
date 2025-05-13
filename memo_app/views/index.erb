@@ -1,0 +1,20 @@
+<!-- views/index.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>メモアプリ</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>メモアプリ</h1>
+    <a href="/memos/new"><button>追加</button></a>
+    <ul>
+      <% @memos.each do |memo| %>
+        <li><a href="/memos/<%= h memo['id'] %>"><%= h memo['title'] %></a></li>
+      <% end %>
+    </ul>
+  </div>
+</body>
+</html>
