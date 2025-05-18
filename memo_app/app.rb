@@ -53,21 +53,18 @@ post '/memos' do
 end
 
 get '/memos/:id' do
-  @memo = load_memos.find { |m| m[:id] == params[:id] }
-  halt 404, erb(:not_found) unless @memo
+  @memo = find_memo_by_id(params[:id])
   erb :show
 end
 
 get '/memos/:id/edit' do
-  @memo = load_memos.find { |m| m[:id] == params[:id] }
-  halt 404, erb(:not_found) unless @memo
+  @memo = find_memo_by_id(params[:id])
   erb :edit
 end
 
 patch '/memos/:id' do
   memos = load_memos
-  memo = memos.find { |m| m[:id] == params[:id] }
-  halt 404, erb(:not_found) unless memo
+  memo = find_memo_by_id(params[:id])
 
   memo[:title] = params[:title]
   memo[:content] = params[:content]
@@ -85,4 +82,10 @@ end
 
 not_found do
   erb :not_found
+end
+
+def find_memo_by_id(id)
+  memo = load_memos.find { |m| m[:id] == id }
+  halt 404, erb(:not_found) unless memo
+  memo
 end
