@@ -12,7 +12,7 @@
     <a href="/memos/new"><button>追加</button></a>
     <ul>
       <% @memos.each do |memo| %>
-        <li><a href="/memos/<%= h memo['id'] %>"><%= h memo['title'] %></a></li>
+        <li><a href="/memos/<%= h memo[:id] %>"><%= h memo[:title] %></a></li>
       <% end %>
     </ul>
   </div>

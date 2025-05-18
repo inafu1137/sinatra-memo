@@ -19,7 +19,7 @@ def load_memos
   content = File.read(MEMO_FILE)
   return [] if content.strip.empty?
 
-  JSON.parse(content)
+  JSON.parse(content, symbolize_names: true)
 end
 
 def save_memos(memos)
@@ -42,43 +42,43 @@ end
 post '/memos' do
   memos = load_memos
   new_memo = {
-    'id' => SecureRandom.uuid,
-    'title' => params[:title],
-    'content' => params[:content],
-    'created_at' => Time.now
+    id: SecureRandom.uuid,
+    title: params[:title],
+    content: params[:content],
+    created_at: Time.now
   }
   memos << new_memo
   save_memos(memos)
-  redirect "/memos/#{new_memo['id']}"
+  redirect "/memos/#{new_memo[:id]}"
 end
 
 get '/memos/:id' do
-  @memo = load_memos.find { |m| m['id'] == params[:id] }
+  @memo = load_memos.find { |m| m[:id] == params[:id] }
   halt 404, erb(:not_found) unless @memo
   erb :show
 end
 
 get '/memos/:id/edit' do
-  @memo = load_memos.find { |m| m['id'] == params[:id] }
+  @memo = load_memos.find { |m| m[:id] == params[:id] }
   halt 404, erb(:not_found) unless @memo
   erb :edit
 end
 
 patch '/memos/:id' do
   memos = load_memos
-  memo = memos.find { |m| m['id'] == params[:id] }
+  memo = memos.find { |m| m[:id] == params[:id] }
   halt 404, erb(:not_found) unless memo
 
-  memo['title'] = params[:title]
-  memo['content'] = params[:content]
+  memo[:title] = params[:title]
+  memo[:content] = params[:content]
   save_memos(memos)
 
-  redirect "/memos/#{memo['id']}"
+  redirect "/memos/#{memo[:id]}"
 end
 
 delete '/memos/:id' do
   memos = load_memos
-  memos.reject! { |memo| memo['id'] == params[:id] }
+  memos.reject! { |memo| memo[:id] == params[:id] }
   save_memos(memos)
   redirect '/memos'
 end
