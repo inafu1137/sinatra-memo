@@ -85,7 +85,7 @@ not_found do
 end
 
 def find_memo_by_id(id)
-  memo = load_memos.find { |m| m[:id] == id }
+  memo = load_memos.find { it[:id] == id }
   halt 404, erb(:not_found) unless memo
   memo
 end
