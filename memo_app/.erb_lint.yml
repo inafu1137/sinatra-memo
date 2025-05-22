@@ -1,0 +1,6 @@
+# .erb_lint.yml
+---
+glob: "**/*.erb"
+linters:
+  RequireInputAutocomplete:
+    enabled: false

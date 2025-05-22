@@ -1,0 +1,20 @@
+<!-- views/edit.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= h @memo[:title] %> を編集</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>メモアプリ</h1>
+    <form action="/memos/<%= h @memo[:id] %>" method="post">
+      <input type="hidden" name="_method" value="PATCH">
+      <input type="text" name="title" value="<%= h @memo[:title] %>"><br>
+      <textarea name="content" rows="10" cols="40"><%= h @memo[:content] %></textarea><br>
+      <button type="submit">更新</button>
+    </form>
+  </div>
+</body>
+</html>
